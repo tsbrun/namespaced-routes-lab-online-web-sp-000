@@ -25,8 +25,9 @@ class SongsController < ApplicationController
   end
 
   def new
-    p = Preference.create
-    if p.allow_create_songs 
+    # p = Preference.create => don't create a new preference; find the first (and only) preference created for the app
+    @preference = Preference.first
+    if @preference.allow_create_songs 
       @song = Song.new
     else
       redirect_to songs_path
